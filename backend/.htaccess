@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# Permitir CORS
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+
+# Manejar preflight requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# Reescribir URLs para API REST
+RewriteRule ^api/vehicles$ api/vehicles/read.php [L]
+RewriteRule ^api/vehicles/([a-zA-Z0-9-]+)$ api/vehicles/read_one.php?id=$1 [L]
+RewriteRule ^api/maintenance$ api/maintenance/read.php [L]
+RewriteRule ^api/incidents$ api/incidents/read.php [L]
+RewriteRule ^api/dashboard/stats$ api/dashboard/stats.php [L]
+
+# Catálogos
+RewriteRule ^api/catalogs/brands$ api/catalogs/brands/read.php [L]
+RewriteRule ^api/catalogs/models$ api/catalogs/models/read.php [L]
+RewriteRule ^api/catalogs/service-types$ api/catalogs/service_types/read.php [L]
+RewriteRule ^api/catalogs/workshops$ api/catalogs/workshops/read.php [L]
